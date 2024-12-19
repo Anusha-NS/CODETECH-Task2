@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+public class Task2{
+    
+    // Method to calculate letter grade based on the numeric grade
+    public static String getLetterGrade(double grade) {
+        if (grade >= 90) {
+            return "A";
+        } else if (grade >= 80) {
+            return "B";
+        } else if (grade >= 70) {
+            return "C";
+        } else if (grade >= 60) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+    
+    // Method to calculate GPA based on numeric grade
+    public static double getGPA(double grade) {
+        if (grade >= 90) {
+            return 4.0;
+        } else if (grade >= 80) {
+            return 3.0;
+        } else if (grade >= 70) {
+            return 2.0;
+        } else if (grade >= 60) {
+            return 1.0;
+        } else {
+            return 0.0;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Ask the user how many subjects/assignments they want to track
+        System.out.print("Enter the number of subjects or assignments: ");
+        int numSubjects = scanner.nextInt();
+        
+        double totalGrade = 0;
+        double totalGPA = 0;
+        
+        // Loop to collect grades for each subject/assignment
+        for (int i = 1; i <= numSubjects; i++) {
+            System.out.print("Enter the grade for subject/assignment " + i + ": ");
+            double grade = scanner.nextDouble();
+            
+            // Ensure the grade is between 0 and 100
+            while (grade < 0 || grade > 100) {
+                System.out.println("Invalid grade. Please enter a grade between 0 and 100.");
+                System.out.print("Enter the grade for subject/assignment " + i + ": ");
+                grade = scanner.nextDouble();
+            }
+            
+            totalGrade += grade;
+            totalGPA += getGPA(grade);
+        }
+        
+        // Calculate the average grade and GPA
+        double averageGrade = totalGrade / numSubjects;
+        double averageGPA = totalGPA / numSubjects;
+        
+        // Get the letter grade for the average grade
+        String letterGrade = getLetterGrade(averageGrade);
+        
+        // Display the results
+        System.out.println("\n----- Student Grade Summary -----");
+        System.out.println("Total Subjects/Assignments: " + numSubjects);
+        System.out.println("Average Grade: " + averageGrade);
+        System.out.println("Letter Grade: " + letterGrade);
+        System.out.println("GPA: " + String.format("%.2f", averageGPA));
+        
+        // Close scanner to avoid resource leak
+        scanner.close();
+    }
+}
+
